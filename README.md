@@ -10,6 +10,8 @@ Manipulasi HTML dengan Javascript sederhana.
 
 Download file yang ada disini
 
+Link : [Download SelekuJS](https://github.com/ianfleon/seleku/archive/main.zip)
+
 ## Dokumentasi Penggunaan :
 
 **Memilih satu element html :**
