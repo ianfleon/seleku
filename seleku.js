@@ -11,13 +11,29 @@ class SelekuClass {
 		}
 	}
 
+	// Memberi satu properti css
 	style(properti, nilai) {
+
 		const gayaku = this.elemen.style;
 		gayaku[properti] = nilai;
+
 	}
 
-	// Append Element
-	tambahElemen(tag, isi) {
+	// Memberi lebih dari 1 properti css
+	css(stylecss) {
+
+		// Membuat index dari object
+		let keys = Object.keys(stylecss);
+		const gayaku = this.elemen.style;
+
+		keys.forEach(function(p) {
+			gayaku[p] = stylecss[p]
+		});
+
+	}
+
+	// Membuat tag baru dengan isinya
+	tambahTag(tag, isi) {
 
 		const tagBaru = document.createElement(tag);
 		const isiTagBaru = document.createTextNode(isi);
@@ -28,6 +44,112 @@ class SelekuClass {
 
 		return hasilGabung;
 
+	}
+
+	// Menambahkan elemen baru
+	tambahElemen(el) {
+		if (typeof(el) === 'object') {
+			return this.telofObject(el);
+		} else if (typeof(el) === 'string') {
+			return this.telofString(el);
+		}
+	}
+
+	// Method tambahElement (Parameter = Object)
+	telofObject(el) {
+		const tag = document.createElement(el.tag);
+
+		let keys;
+
+		// Cek Attribute
+		if (el.attr != undefined) {
+
+			keys = Object.keys(el.attr);
+
+			if (keys.length > 0) {
+				keys.forEach((k) => {
+					tag.setAttribute(k, el.attr[k]);
+				});
+			}
+		}
+
+		// Cek Isi
+		if (el.isi != undefined) {
+			tag.innerHTML = el.isi;
+		} else {
+			tag.innerHTML = '';
+		}
+
+		return tag;
+	}
+
+	// Method tambahElement (Parameter = String)
+	telofString(el) {
+
+		// Tag Pembuka
+		const t1 = el.indexOf('>');
+
+		// Tag Penutup
+		const t2 = el.lastIndexOf('<');
+
+		// Tag dan isinya
+		const tag_full = el.slice(1, t1);
+		const isi = el.slice(t1+1, t2);
+
+		//Gabung Bagian Element HTML
+		const cari_spasi = tag_full.search(' ');
+
+		let tag;
+
+		if (cari_spasi < 0) {
+
+			// # Jika tidak ada attribute
+			tag = tag_full.slice(0, t1);
+
+			const tagBaru = document.createElement(tag);
+			const isiBaru = document.createTextNode(isi);
+					
+			tagBaru.appendChild(isiBaru);
+			return this.elemen.appendChild(tagBaru);
+
+		} else {
+
+			// # Jika ada attribute
+
+			// Spasi dalam tag pembuka
+			const spasi1 = el.indexOf(' ');
+
+			// Ketika ada attribute
+			const tag_temp = tag_full.slice(spasi1);
+			const attr_temp = tag_temp.split(' ');
+				
+
+			// Buat tag
+			tag = tag_full.slice(0, spasi1-1);
+			const tag_baru = document.createElement(tag);
+			const isiBaru = document.createTextNode(isi);
+
+			tag_baru.appendChild(isiBaru);
+
+			// console.log(tag_baru);
+
+			// Looping attribute
+			attr_temp.forEach((a) => {
+				const samadengan = a.indexOf('=');
+				// console.log(a);
+				// console.log(samadengan.);
+				const attr_baru = a.slice(0, samadengan);
+
+				const nilai_attr = a.slice(samadengan+2, a.length-1);
+				// console.log(nilai_attr);
+				
+				// Menggabungkan properti dan nilai dari attr.
+				tag_baru.setAttribute(attr_baru, nilai_attr);
+			});
+			
+			return this.elemen.appendChild(tag_baru);
+
+		}
 	}
 
 	// Mengganti isi elemen
@@ -57,6 +179,17 @@ class SelekuClass {
 		return this.elemen.addEventListener(event, aksi);
 	}
 
+	// Gabung Elemen
+	gabung(el1, el2) {
+
+		// Cek Parameter
+		if (el2 != undefined) {
+			return el1.appendChild(el2);
+		} else {
+			return this.elemen.appendChild(el1);
+		}
+	}
+
 }
 
 // [[ Mengambil Satu Elemen ]]
@@ -72,14 +205,20 @@ function $elek (elemen, indeks) {
 			return els_html;
 		}
 
-
 	} else if (typeof(indeks) === 'string') {
+
 		if (indeks === 'semua') {
 			const els_html = document.querySelectorAll(elemen); // ambil semua elemen
 			return els_html;
+		} else if (indeks === 'awal') {
+			return document.querySelectorAll(elemen)[0]; // ambil elemen pertama
+		} else if (indeks === 'akhir') {
+			const jml_el = document.querySelectorAll(elemen); // ambil elemen pertama
+			return document.querySelectorAll(elemen)[jml_el.length-1]; // ambil elemen pertama
 		} else {
 			console.log('SelekuJS : Parameter tidak benar');
 		}
+		
 	} else {
 		const el_html = document.querySelector(elemen); // ambil elemen
 		return el_html;
