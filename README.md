@@ -112,7 +112,7 @@ $ku('.tombol').pas('click', () => {
 <h2>Binding dan Reactivity di selek</h2>
 <p>selek juga memiliki binding dan reactivity ```ingat hanya untuk tag input dan textarea```</p>
 <p>Contoh</p>
-```html
+```HTML
 <!DOCTYPE html>
 <html>
 <head>
