@@ -109,5 +109,33 @@ $ku('.tombol').pas('click', () => {
   alert('Anda menekan tombol!');
 );
 ```
+<h2>Binding dan Reactivity di selek</h2>
+<p>selek juga memiliki binding dan reactivity ```ingat hanya untuk tag input dan textarea```</p>
+<p>Contoh</p>
+```html
+<!DOCTYPE html>
+<html>
+<head>
+	<title>selek</title>
+</head>
+<body>
+	
+	<h1>hello {name}</h1>
+	<input type="text" name="try" this-bind={p}>
+	
+	<script src="seleku.js"></script>
+	<script src="seleku-embbeded.js"></script>
+	<script>
+
+		let name = "seleku";
+
+		selekDOM();
+		binding();
+		reactive();
+
+	</script>
+</body>
+</html>
+```
 
 
