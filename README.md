@@ -113,12 +113,7 @@ $ku('.tombol').pas('click', () => {
 <p>selek juga memiliki binding dan reactivity ```ingat hanya untuk tag input dan textarea```</p>
 <p>Contoh</p>
 ```HTML
-<!DOCTYPE html>
-<html>
-<head>
-	<title>selek</title>
-</head>
-<body>
+
 	
 	<h1>hello {name}</h1>
 	<input type="text" name="try" this-bind={p}>
@@ -134,8 +129,7 @@ $ku('.tombol').pas('click', () => {
 		reactive();
 
 	</script>
-</body>
-</html>
+
 ```
 
 
