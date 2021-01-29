@@ -139,7 +139,7 @@ $ku('.tombol').pas('click', () => {
 ```
 
 
-# Binding and Reactivity in the selek
+# Binding and Reactivity in `selek`
 #### selek also has binding and reactivity remember only for the ``` input ``` and `textarea` tags, to use them simply add the ` this-bind = {variable} ` attribute
 #### Example
 
