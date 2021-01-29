@@ -110,7 +110,7 @@ $ku('.tombol').pas('click', () => {
 );
 ```
 <h2>Binding dan Reactivity di selek</h2>
-<p>selek juga memiliki binding dan reactivity ```ingat hanya untuk tag input dan textarea```</p>
+<p>selek juga memiliki binding dan reactivity ingat hanya untuk tag ```input``` dan `textarea`, untuk menggunakan nya cukup menambahkan atribut `this-bind={variabel}`</p>
 <p>Contoh</p>
 
 
