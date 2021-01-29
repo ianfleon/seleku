@@ -109,9 +109,39 @@ $ku('.tombol').pas('click', () => {
   alert('Anda menekan tombol!');
 );
 ```
-# Binding dan Reactivity di selek
-#### selek juga memiliki binding dan reactivity ingat hanya untuk tag ```input``` dan `textarea`, untuk menggunakan nya cukup menambahkan atribut `this-bind={variabel}`
-#### Contoh
+
+# Javacsript variabel to html
+#### selek also allows to access variables in javascript directly without using the DOM just simply add `{variable}` where `variable`
+#### is a direct access javascript variable
+
+
+```HTML
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>selek</title>
+</head>
+<body>
+	
+	<h1>hello {name}</h1>
+	
+	<script src="seleku.js"></script>
+	<script src="seleku-embbeded.js"></script>
+	<script>
+
+		let name = "seleku";
+
+	</script>
+</body>
+</html>
+
+```
+
+
+# Binding and Reactivity in the selek
+#### selek also has binding and reactivity remember only for the ``` input ``` and `textarea` tags, to use them simply add the ` this-bind = {variable} ` attribute
+#### Example
 
 
 ```HTML
