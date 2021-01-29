@@ -109,9 +109,9 @@ $ku('.tombol').pas('click', () => {
   alert('Anda menekan tombol!');
 );
 ```
-<h2>Binding dan Reactivity di selek</h2>
-<p>selek juga memiliki binding dan reactivity ingat hanya untuk tag ```input``` dan `textarea`, untuk menggunakan nya cukup menambahkan atribut `this-bind={variabel}`</p>
-<p>Contoh</p>
+# Binding dan Reactivity di selek
+#### selek juga memiliki binding dan reactivity ingat hanya untuk tag ```input``` dan `textarea`, untuk menggunakan nya cukup menambahkan atribut `this-bind={variabel}`
+#### Contoh
 
 
 ```HTML
