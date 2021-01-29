@@ -116,6 +116,12 @@ $ku('.tombol').pas('click', () => {
 
 ```HTML
 
+<!DOCTYPE html>
+<html>
+<head>
+	<title>selek</title>
+</head>
+<body>
 	
 	<h1>hello {name}</h1>
 	<input type="text" name="try" this-bind={p}>
@@ -131,6 +137,8 @@ $ku('.tombol').pas('click', () => {
 		reactive();
 
 	</script>
+</body>
+</html>
 
 ```
 
