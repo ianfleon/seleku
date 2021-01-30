@@ -185,7 +185,7 @@ $ku('h1').hapusNilaiAttr('class', 'judul');
 <body>
 	
 	<h1>hello {name}</h1>
-	<input type="text" name="try" this-bind={p}>
+	<input type="text" name="try" this-bind={name}>
 	
 	<script src="seleku.js"></script>
 	<script src="seleku-embbeded.js"></script>
@@ -193,9 +193,34 @@ $ku('h1').hapusNilaiAttr('class', 'judul');
 
 		let name = "seleku";
 
-		selekDOM();
-		binding();
-		reactive();
+	</script>
+</body>
+</html>
+
+```
+#### --Or--
+
+```HTML
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>selek</title>
+</head>
+<body>
+	
+	<h1>hello {name}</h1>
+	<input type="text" name="try" oninput="input(this)">
+	
+	<script src="seleku.js"></script>
+	<script src="seleku-embbeded.js"></script>
+	<script>
+
+		let name = "seleku";
+
+		function input(element){
+			contexts.name = element.value;
+		}
 
 	</script>
 </body>
