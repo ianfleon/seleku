@@ -56,7 +56,7 @@ class SelekuClass {
 	}
 
 	// Hapus elemen
-	hapus(el) {a
+	hapus() {
 		this.elemen.remove();
 	}
 
