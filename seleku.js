@@ -55,6 +55,33 @@ class SelekuClass {
 		}
 	}
 
+	// Hapus elemen
+	hapus() {
+		this.elemen.remove();
+	}
+
+	// Tambah attribute pada sebuah elemen html
+	attr(properti, nilai) {
+		return this.elemen.setAttribute(properti, nilai);
+	}
+
+	// Hapus sebuah attribute pada element
+	hapusAttr(attr) {
+		this.elemen.removeAttribute(attr);
+	}
+
+	// Tambah nilai baru pada attribute
+	tambahNilaiAttr(properti, nilai) {
+		let nilai_full = this.elemen.getAttribute(properti) + ' ' + nilai;
+		return this.elemen.setAttribute(properti, nilai_full);
+	}
+
+	// Hapus sebuah nilai pada attribute
+	hapusNilaiAttr(properti, nilai) {
+		let nilai_full = this.elemen.getAttribute(properti);
+		return this.elemen.setAttribute(properti, nilai_full.replace(nilai, ''));
+	}
+
 	// Method tambahElement (Parameter = Object)
 	telofObject(el) {
 		const tag = document.createElement(el.tag);

@@ -1,39 +1,84 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<title>selek</title>
-</head>
-<body>
-	<div>
-		k
-		<b>my name {p}</b>
-	</div>
-	<h1>
-		{my_name}
-		<span>{p}</span>
-	</h1>
-	<h2>{hello}</h2>
-	<input type="text" name="try" this-bind={p}>
-	<textarea this-bind={p}>
+	<head>
+		<title>selek</title>
+		<style>
+			.container{
+				width: 300px;
+				height: 300px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				flex-direction: column;
+				box-shadow: 0px 0px 20px rgba(0,0,0,0.25);
+				border-radius: 20px;
+				background: white;
+				position:fixed;
+				top:0px;
+				right:0px;
+				bottom:0px;
+				left:0px;
+				margin: auto;
+			}
+			.container b{
+				color: salmon;
+				font-size: 35px;
+			}
+			.container p{
+				margin-top: 20px;
+				margin-bottom: 20px;
+				font-size: 20px;
+			}
+			button{
+				padding: 10px;
+				font-size: 13px;
+				border: none;
+				outline: none;
+				background: salmon;
+				color: white;
+				border-radius: 10px;
+				margin: 5px;
+				box-shadow: 0px 0px 20px rgba(0,0,0,0.25);
+			}
+
+		</style>
+	</head>
+	<body>
+
+		<div class="container">
+			<b> jumlah klik </b>
+
+			<!-- menggabungkan javascript dan html dengan-->
+			<!-- menambahkan {} dan di isi variabel javascript nya-->
+			<!-- dan ketika di update nilai nya melalui contexts.NAMAVARIABEL maka -->
+			<!-- akan terupdate juga -->
+			<p>{jumlah_klik}</p>
+
+			<!-- tombol di bawah ketika di click akan menjalankan fungsi klik() -->
+			<button onclick="klik()">click me</button>
+		</div>
 		
-	</textarea>
-	<script src="seleku.js"></script>
-	<script src="seleku-embbeded.js"></script>
-	<script>
+		<script src="seleku.js"></script>
+		<script src="seleku-embbeded.js"></script>
+		<script>
 
-		let hello = "daber";
-		let get = 0;
-		let my_name = hello + " haiya";
-		let p = 10+1;
+			//variabel yang akan di gunakan
+			//dan variabel yang aka di gabungkan dengan html
+			//tidak boleh bernilai undifine atau null
+			let jumlah_klik = 48;
 
-		function getNama(){
-			return "<p>hello</p>";
-		}
 
-		selekDOM();
-		binding();
-		reactive();
-
-	</script>
-</body>
+			//fungsi klik ini berfungsi untuk mengupdate nilai dari
+			//jumlah_klik jangan khawatir selek ototmatis mendeklarasikan
+			//global variabel dan mengupdate nilainya
+			//untuk melakukan itu kita menggunakan nilai yang ada di contexts
+			//yang di mana merupakan variabel sementara sebagai nilai update
+			//atau bisa di bilang sebagai perwakilan dari variabel global nya
+			//yaitu jumlah_klik
+			function klik(){
+				contexts.jumlah_klik += 1;
+			}
+			
+		</script>
+	</body>
 </html>

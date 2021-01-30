@@ -24,6 +24,17 @@ let selekDOM = (element) => {
                 //do something
             } else {
                 let content = el.innerHTML;
+                let theMain = content.replace(/{/igm, " {").replace(/}/igm, "} ").split(" ");
+                let mainDOMLocation = [];
+
+                for (let x in theMain) {
+                    if (theMain[x].match(/{/) || theMain[x].match(/}/)) {
+                        mainDOMLocation.push({
+                            location: x
+                        });
+                    }
+                }
+
                 let arrayOfContext = content.replace(/\s+/igm, "").replace(/{/igm, "~").replace(/}/igm, "~").split("~");
                 let context = [];
 
@@ -72,6 +83,7 @@ let selekDOM = (element) => {
     }
 }
 
+
 let reactive = () => {
 
     window.contexts = {
@@ -118,16 +130,23 @@ let reactive = () => {
                                 if (name == j.bindTo) {
                                     contexts[name] = `"${i.value}"`;
                                     eval(`${name} = "${i.value}"`);
-                                    j.element.textContent = eval(name);
+                                    j.element.innerHTML = eval(name);
+                                    c(contexts[name])
                                 }
 
                             });
                         }
+
                     } else {
                         allElementAttribute.forEach((j) => {
-                            if (name == j.bindTo) {
+                            try {
+                                if (name == j.bindTo) {
+                                    eval(`${name} = ${contexts[name]}`);
+                                    j.element.innerHTML = eval(name);
+                                }
+                            } catch (err) {
                                 eval(`${name} = ${contexts[name]}`);
-                                j.element.textContent = eval(name);
+                                j.element.innerHTML = eval(name);
                             }
 
                         });
@@ -136,8 +155,24 @@ let reactive = () => {
                 } catch (err) {
                     allElementAttribute.forEach((j) => {
                         if (name == j.bindTo) {
-                            eval(`${name} = "${contexts[name]}"`);
-                            j.element.textContent = contexts[name];
+                            try {
+                                eval(`${name} = ${contexts[name]}`);
+                                j.element.innerHTML = contexts[name];
+                            } catch (err) {
+                                document.body.innerHTML += `
+                                    <div class="container-danger" id="container-danger">
+                                        <code>
+                                            <b class="danger" id="container-danger-child"></b>
+                                        </code>
+                                    </div>
+                                `;
+                                let error = "";
+                                eval(`error = "${err} in ${name}"`);
+                                document.getElementById("container-danger").style.display = "flex";
+                                document.getElementById("container-danger-child").innerHTML = error;
+                                return;
+                            }
+
                         }
 
                     });
@@ -151,7 +186,7 @@ let reactive = () => {
 
 
     } catch (err) {
-        
+
     }
 }
 
@@ -165,6 +200,9 @@ const binding = () => {
 }
 
 window.onload = () => {
+    selekDOM();
+    binding();
+    reactive();
     $ku("head").tambahTag("style", `
     *{
         font-weight: 500;
@@ -197,6 +235,30 @@ window.onload = () => {
         padding: 10px;
         margin: 3px;
         border-radius: 10px;
+    }
+    .container-danger code b{
+        font-size: 20px;
+    }
+
+    .container-danger{
+        width: 100%;
+        height: 1005;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+        text-align: center;
+        border-radius: 20px;
+        position:fixed;
+        top:0px;
+        right:0px;
+        bottom:0px;
+        left:0px;
+        margin: auto;
+    }
+
+    #container-danger{
+        display: none;
     }
 `);
 }
