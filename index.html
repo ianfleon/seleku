@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>selek</title>
+</head>
+<body>
+	<div>
+		k
+		<b>my name {p}</b>
+	</div>
+	<h1>
+		{my_name}
+		<span>{p}</span>
+	</h1>
+	<h2>{hello}</h2>
+	<input type="text" name="try" this-bind={p}>
+	<textarea this-bind={p}>
+		
+	</textarea>
+	<script src="seleku.js"></script>
+	<script src="seleku-embbeded.js"></script>
+	<script>
+
+		let hello = "daber";
+		let get = 0;
+		let my_name = hello + " haiya";
+		let p = 10+1;
+
+		function getNama(){
+			return "<p>hello</p>";
+		}
+
+		selekDOM();
+		binding();
+		reactive();
+
+	</script>
+</body>
+</html>
