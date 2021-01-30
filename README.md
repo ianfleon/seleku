@@ -110,8 +110,39 @@ $ku('.tombol').pas('click', () => {
 );
 ```
 
-# Javacsript variabel to html
-#### selek also allows to access variables in javascript directly without using the DOM just simply add `{variable}` where `variable`
+**--- v1.2 ---**
+
+###### Hapus element
+```js
+$ku('p.sinoposis').hapus();
+```
+
+###### Menambahkan attribute baru ke sebuah element
+```js
+$ku('h1').attr('class', 'judul');
+$ku('h1').attr('id', 'judulsaya');
+```
+
+###### Menghapus sebuah attribute pada element tertentu
+```js
+$ku('h2').hapusAttr('class');
+```
+
+###### Menambah nilai attribute tertentu
+```js
+$ku('h1').tambahNilaiAttr('class', 'kelasbaru');
+```
+
+###### Menghapus nilai tertentu dari sebuah attribute
+```js
+$ku('h1').hapusNilaiAttr('class', 'judul');
+```
+
+
+
+
+## Javacsript variabel to html
+#### seleku also allows to access variables in javascript directly without using the DOM just simply add `{variable}` where `variable`
 #### is a direct access javascript variable
 
 
@@ -139,7 +170,7 @@ $ku('.tombol').pas('click', () => {
 ```
 
 
-# Binding and Reactivity in `selek`
+## Binding and Reactivity in `selek`
 #### selek also has binding and reactivity remember only for the ``` input ``` and `textarea` tags, to use them simply add the ` this-bind = {variable} ` attribute
 #### Example
 
@@ -171,5 +202,3 @@ $ku('.tombol').pas('click', () => {
 </html>
 
 ```
-
-
