@@ -169,10 +169,9 @@ $ku('h1').hapusNilaiAttr('class', 'judul');
 
 ```
 
-
-## Binding and Reactivity in `selek`
-#### selek also has binding and reactivity remember only for the ``` input ``` and `textarea` tags, to use them simply add the ` this-bind = {variable} ` attribute
-#### Example
+## Mengikat dan Reaktivitas dalam `selek`
+#### selek juga memiliki binding dan reaktivitas, ingat hanya untuk tag ``` input ``` dan` textarea`, untuk menggunakannya cukup tambahkan atribut `this-bind = {variable}`
+#### Contoh
 
 
 ```HTML
@@ -198,7 +197,7 @@ $ku('h1').hapusNilaiAttr('class', 'judul');
 </html>
 
 ```
-#### --Or--
+#### --Atau--
 
 ```HTML
 
