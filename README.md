@@ -140,8 +140,8 @@ $ku('h1').hapusNilaiAttr('class', 'judul');
 
 
 
-
 ## Javacsript variabel to html
+
 #### seleku also allows to access variables in javascript directly without using the DOM just simply add `{variable}` where `variable`
 #### is a direct access javascript variable
 
