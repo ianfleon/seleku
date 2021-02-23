@@ -1,8 +1,14 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 		<title>selek</title>
 		<style>
+			
+			*{
+				font-family: sans-serif;
+				font-weight: 500;
+			}
 			.container{
 				width: 300px;
 				height: 300px;
@@ -38,13 +44,16 @@
 				color: white;
 				border-radius: 10px;
 				margin: 5px;
+				font-size:20px;
 				box-shadow: 0px 0px 20px rgba(0,0,0,0.25);
 			}
 
 		</style>
 	</head>
 	<body>
-
+		<button class="pad-10px c-white m-5px f-s-25px">hello</button>
+		<p id={angka2} class="pad-10px p-b-30pc p-t-50px b-red m-20px f-s-25px">hallo</p>
+		<h1 id={angka1}>Hello <span>{jumlah}</span></h1>
 		<div class="container">
 			<b> jumlah klik </b>
 
@@ -52,21 +61,38 @@
 			<!-- menambahkan {} dan di isi variabel javascript nya-->
 			<!-- dan ketika di update nilai nya melalui contexts.NAMAVARIABEL maka -->
 			<!-- akan terupdate juga -->
-			<p>{jumlah_klik}</p>
+			<input type="number" oninput="jum1(this)">
+			<input type="number" oninput="jum2(this)">
+			<p id={jumlah_klik}>{jumlah_klik}</p>
 
 			<!-- tombol di bawah ketika di click akan menjalankan fungsi klik() -->
 			<button onclick="klik()">click me</button>
 		</div>
-		
+
 		<script src="seleku.js"></script>
+		<script src="global_function.js"></script>
+		<script src="joss.js"></script>
 		<script src="seleku-embbeded.js"></script>
+		
 		<script>
 
 			//variabel yang akan di gunakan
 			//dan variabel yang aka di gabungkan dengan html
 			//tidak boleh bernilai undifine atau null
 			let jumlah_klik = 48;
+			let jumlah = 0;
+			let angka1 = 0;
+			let angka2 = 0;
+			let style = "hello";
+			function jum1(element){
+				contexts.angka1 = parseInt(element.value); 
+				contexts.jumlah = contexts.angka1 + contexts.angka2;
+			}
 
+			function jum2(element){
+				contexts.angka2 = parseInt(element.value); 
+				contexts.jumlah = contexts.angka1 + contexts.angka2;
+			}
 
 			//fungsi klik ini berfungsi untuk mengupdate nilai dari
 			//jumlah_klik jangan khawatir selek ototmatis mendeklarasikan
@@ -77,8 +103,9 @@
 			//yaitu jumlah_klik
 			function klik(){
 				contexts.jumlah_klik += 1;
+				contexts.style = "color:red";
 			}
-			
+
 		</script>
 	</body>
 </html>

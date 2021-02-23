@@ -1,3 +1,4 @@
+let JOSS = joss_overload;
 let body = document.body;
 let child;
 let allElement = [];
@@ -6,6 +7,7 @@ let allElements = [];
 let {
     ["log"]: c, ["error"]: e
 } = console;
+let Name;
 
 let selekDOM = (element) => {
 
@@ -17,7 +19,31 @@ let selekDOM = (element) => {
         child = element.children;
     }
 
+
     if (child !== undefined) {
+
+        for (let attr of child) {
+            if (attr.getAttribute("class")) {
+                let attrOfElement = attr.getAttribute("class").split(" ");
+
+                for (let attrOfElementStyle of attrOfElement) {
+                    if (attrOfElementStyle.split(/-/igm).length === 3) {
+                        new JOSS({
+                            class: attrOfElementStyle,
+                            element: attr
+                        }).twoClassDirection()
+                    } else if(attrOfElementStyle.split(/-/igm).length === 2){
+                        new JOSS({
+                            class: attrOfElementStyle,
+                            element: attr
+                        }).oneClassDirection()
+                    }
+                }
+
+
+            }
+        }
+
         for (let el of child) {
 
             if (el.toString() === document.createElement("script").toString()) {
@@ -43,7 +69,16 @@ let selekDOM = (element) => {
                 try {
                     context = content.replace(/\<(.*)\>\w*/igm, "").match(/\{*[^{]*[}]/igm);
                     if (context === null) {
-                        selekDOM(el);
+
+                        if (el.attributes.length !== 0) {
+                            allElement.push({
+                                element: el,
+                                attr: el.attributes
+                            });
+                            selekDOM(el);
+                        } else {
+                            selekDOM(el);
+                        }
 
                     }
 
@@ -66,7 +101,6 @@ let selekDOM = (element) => {
                             }
                         });
                     }
-
                     if (el.children.length !== 0) {
                         selekDOM(el);
                     }
@@ -83,7 +117,6 @@ let selekDOM = (element) => {
     }
 }
 
-
 let reactive = () => {
 
     window.contexts = {
@@ -93,7 +126,12 @@ let reactive = () => {
     try {
 
         allElementAttribute.forEach((i) => {
-            contexts[i.bindTo] = eval(i.bindTo);
+            if (i.attr) {
+                contexts[i.attr] = eval(i.attr);
+            }
+            if (i.bindTo) {
+                contexts[i.bindTo] = eval(i.bindTo);
+            }
         });
 
         function reactivity(object, key) {
@@ -131,7 +169,7 @@ let reactive = () => {
                                     contexts[name] = `"${i.value}"`;
                                     eval(`${name} = "${i.value}"`);
                                     j.element.innerHTML = eval(name);
-                                    c(contexts[name])
+                    
                                 }
 
                             });
@@ -154,23 +192,50 @@ let reactive = () => {
 
                 } catch (err) {
                     allElementAttribute.forEach((j) => {
+                        if (name === j.attr) {
+                            let g = {...j.element.attributes
+                            };
+                            if (Name === undefined) {
+                                for (let x in g) {
+                                    if (g[x].value.match(/\{(.*?)\}/)) {
+                                        try {
+                                            eval(`${name} = "${contexts[name]}"`);
+                                            j.element.setAttribute(g[x].name, contexts[name]);
+                                            Name = g[x].name;
+                                        } catch (error) {
+                                            e(error)
+                                        }
+
+
+                                    }
+
+                                }
+                            } else {
+
+                                try {
+                                    eval(`${name} = "${contexts[name]}"`);
+                                    j.element.setAttribute(Name, contexts[name]);
+
+                                } catch (error) {
+                                    e(error)
+                                }
+                            }
+                        }
+
                         if (name == j.bindTo) {
+
                             try {
-                                eval(`${name} = ${contexts[name]}`);
+                                try {
+                                    eval(`${name} = ${contexts[name]}`);
+                                } catch (err) {
+                                    eval(`${name} = "${contexts[name]}"`);
+                                };
+
                                 j.element.innerHTML = contexts[name];
+
                             } catch (err) {
-                                document.body.innerHTML += `
-                                    <div class="container-danger" id="container-danger">
-                                        <code>
-                                            <b class="danger" id="container-danger-child"></b>
-                                        </code>
-                                    </div>
-                                `;
-                                let error = "";
-                                eval(`error = "${err} in ${name}"`);
-                                document.getElementById("container-danger").style.display = "flex";
-                                document.getElementById("container-danger-child").innerHTML = error;
                                 return;
+                            
                             }
 
                         }
@@ -192,10 +257,25 @@ let reactive = () => {
 
 const binding = () => {
     allElement.forEach((element) => {
-        allElementAttribute.push({
-            element: element.element,
-            bindTo: element.bindTo
-        });
+        if (element.attr) {
+            for (let x in element.attr) {
+                if (typeof element.attr[x] !== "function" && typeof element.attr[x] !== "number") {
+                    if (element.attr[x].value.match(/\{(.*?)\}/)) {
+                        allElementAttribute.push({
+                            element: element.element,
+                            attr: element.attr[x].value.replace(/{/igm, "").replace(/}/igm, "")
+                        });
+                    }
+
+                }
+            }
+        } else {
+            allElementAttribute.push({
+                element: element.element,
+                bindTo: element.bindTo
+            });
+        }
+
     });
 }
 
@@ -203,62 +283,5 @@ window.onload = () => {
     selekDOM();
     binding();
     reactive();
-    $ku("head").tambahTag("style", `
-    *{
-        font-weight: 500;
-        font-family: sans-serif;
-    }
-    .danger{
-        color: rgb(230,10,10);
-        font-wight: bold;
-        font-size: 20px;
-        padding: 5px;
-        margin: 5px;
-        border-radius: 5px;
-        background: black;
-        text-align: center;
-    }
-    input{
-        border: none;
-        outline: none;
-        background: white;
-        box-shadow: 0px 0px 20px rgba(0,0,0,0.1);
-        padding: 10px;
-        margin: 3px;
-        border-radius: 10px;
-    }
-    textarea{
-        border: none;
-        outline: none;
-        background: white;
-        box-shadow: 0px 0px 20px rgba(0,0,0,0.1);
-        padding: 10px;
-        margin: 3px;
-        border-radius: 10px;
-    }
-    .container-danger code b{
-        font-size: 20px;
-    }
-
-    .container-danger{
-        width: 100%;
-        height: 1005;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-wrap: wrap;
-        text-align: center;
-        border-radius: 20px;
-        position:fixed;
-        top:0px;
-        right:0px;
-        bottom:0px;
-        left:0px;
-        margin: auto;
-    }
-
-    #container-danger{
-        display: none;
-    }
-`);
+    new JOSS({class:"",element:""}).update();
 }
