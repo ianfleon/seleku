@@ -18,7 +18,20 @@
 <!-- Kode JS -->
 <script>
 
+// Selamat datang di Seleku
+$ku('h1').hai();
+
+// memilih dan memanipulasi
 $ku('.creditsaya').log();
+
+// manipulasi elemen html secara bersamaan
+$ku('h1').buatDOM(function() {
+	this.style('color', '#fff');
+	this.css({
+		'background-color' : 'teal',
+		'font-family' : 'arial'
+	});
+});
 
 </script>
 </body>
