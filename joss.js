@@ -1,7 +1,43 @@
 let Joss_utility_class = [];
 let oneProps = {
+    "dbs-":{
+        "box-shadow": {
+            value: "0px 2px 5px rgba(0,0,0,$)",
+            type: ""
+        }
+    },
     "c-": {
         "color": {
+            value: null,
+            type: ""
+        }
+    },
+    "bottom-": {
+        "bottom": {
+            value: null,
+            type: ""
+        }
+    },
+    "top-": {
+        "top": {
+            value: null,
+            type: ""
+        }
+    },
+    "left-": {
+        "left": {
+            value: null,
+            type: ""
+        }
+    },
+    "right-": {
+        "right": {
+            value: null,
+            type: ""
+        }
+    },
+    "cur-": {
+        "cursor": {
             value: null,
             type: ""
         }
@@ -55,7 +91,7 @@ let oneProps = {
         }
     },
     "h-": {
-        "display": {
+        "height": {
             value: null,
             type: ""
         }
@@ -153,6 +189,30 @@ let twoProps = {
             value: null,
             type: ""
         }
+    },
+    "j-c-": {
+        "justify-content": {
+            value: null,
+            type: ""
+        }
+    },
+    "flex-d-": {
+        "flex-direction": {
+            value: null,
+            type: ""
+        }
+    },
+    "flex-w-": {
+        "flex-wrap": {
+            value: null,
+            type: ""
+        }
+    },
+    "align-i-": {
+        "align-items": {
+            value: null,
+            type: ""
+        }
     }
 }
 
@@ -199,12 +259,11 @@ class joss_overload {
                         property.push(x + ": ");
 
                         if (typeof oneProps[i][x] === "object") {
-                            if(Class.split(/-/igm)[Class.split(/-/igm).length - 1].match(/\(.*?\)/) && oneProps[i][x].value === null){
-                                oneProps[i][x].value = Class.split(/-/igm)[Class.split(/-/igm).length - 1];
+                            if (Class.split(/-/igm)[Class.split(/-/igm).length - 1].match(/\(.*?\)/) && oneProps[i][x].value === null) {
+                                oneProps[i][x].value = Class.split(/-/igm)[Class.split(/-/igm).length - 1].replace(/\(/igm, "").replace(/\)/igm, "");
                                 property[index] += oneProps[i][x].value + oneProps[i][x].type + ";";
                                 Class = Class.replace(Class.split(/-/igm)[Class.split(/-/igm).length - 1], CREATE_UUID());
-                            }
-                            else if (oneProps[i][x].value === null) {
+                            } else if (oneProps[i][x].value === null) {
                                 oneProps[i][x].value = Class.split(/-/igm)[Class.split(/-/igm).length - 1];
                                 property[index] += oneProps[i][x].value + oneProps[i][x].type + ";";
                                 Class = Class.replace(Class.split(/-/igm)[Class.split(/-/igm).length - 1], CREATE_UUID());
@@ -221,13 +280,15 @@ class joss_overload {
                             // di sini woi di benerin
 
                         } else {
-                            property[index] += twoProps[i][x] + ";";
+                            property[index] += oneProps[i][x] + ";";
                         }
                         g = `.${Class}{${property.join(" ")}}`;
                         name = class_name;
 
                         this.my_element.className = this.my_element.className.replace(class_name, Class);
-                        oneProps[i][x].value = null;
+                        if(typeof oneProps[i][x] === "object"){
+                            oneProps[i][x].value = null;
+                        }
                     }
                 }
 
@@ -291,7 +352,11 @@ class joss_overload {
                             property.push(x + ": ");
 
                             if (typeof twoProps[i][x] === "object") {
-                                if (twoProps[i][x].value === null) {
+                                if (a.split(/-/igm)[a.split(/-/igm).length - 1].match(/\(.*?\)/) && twoProps[i][x].value === null) {
+                                    twoProps[i][x].value = a.split(/-/igm)[a.split(/-/igm).length - 1].replace(/^\(/igm, "").replace(/\)$/igm, "");
+                                    property[index] += twoProps[i][x].value + twoProps[i][x].type + ";";
+                                    a = a.replace(a.split(/-/igm)[a.split(/-/igm).length - 1], CREATE_UUID());
+                                } else if (twoProps[i][x].value === null) {
                                     twoProps[i][x].value = a.split(/-/igm)[a.split(/-/igm).length - 1];
                                     property[index] += twoProps[i][x].value + twoProps[i][x].type + ";";
                                     a = a.replace(a.split(/-/igm)[a.split(/-/igm).length - 1], CREATE_UUID());
@@ -304,8 +369,6 @@ class joss_overload {
                                     property[index] += twoProps[i][x].value + twoProps[i][x].type + ";";
                                     a = a.replace(a.split(/-/igm)[a.split(/-/igm).length - 1], CREATE_UUID());
                                 }
-
-                                // di sini woi di benerin
 
                             } else {
                                 property[index] += twoProps[i][x] + ";";

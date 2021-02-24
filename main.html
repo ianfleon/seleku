@@ -6,18 +6,26 @@
 		
 	</head>
 	<body>
-		<h1 class="f-s-25px c-gray m-20px f-w-500">{count}</h1>
-		<button class="b-s-[0px+0px+10px+rgba(0,0,0,0.75)] pad-15px f-w-500 l-s-1px o-l-none c-gray bg-rgba(240,240,240,0.74) m-5px f-s-15px br-r-5px br-none t-t-uppercase d-flex" onclick="add()">hello</button>
-		
+		<h1 class="f-s-40px f-f-monospace w-auto c-gray m-20px f-w-500 dbs-0.25 pad-10px br-r-10px">{text}</h1>
+		<h1 class="f-s-40px f-f-monospace c-gray m-20px f-w-500">{text}</h1>
 
+		<input type="text" class="f-s-20px br-none o-l-none bg-white b-s-(0px 2px 5px rgba(0,0,0,0.25)) w-100px h-30px c-black f-f-monospace f-w-500 pad-10px br-r-10px m-10px" this:bind={text}>
+
+		<div class="w-300px h-300px br-r-20px b-s-(0px 2px 5px rgba(0,0,0,0.25)) bg-white d-flex j-c-center align-i-center flex-d-column pos-fixed top-0px bottom-0px left-0px right-0px m-auto">
+
+			<h1 class="f-s-40px f-f-monospace c-gray m-20px f-w-500">{count}</h1>
+
+			<button class="pad-13px f-f-monospace cur-pointer f-w-bold l-s-1px b-s-(0px 2px 5px rgba(0,0,0,0.25)) o-l-none c-white bg-#673ab7 m-5px f-s-15px br-r-5px br-none t-t-uppercase d-flex" onclick="add()">click me</button>
+
+		</div>
+		
 		<script src="seleku.js"></script>
 		<script src="global_function.js"></script>
 		<script src="joss.js"></script>
 		<script src="seleku-embbeded.js"></script>
-
 		<script>
+			let text = "hello world";
 			let count = 0;
-
 			let add = ()=>{
 				contexts.count++;
 			}
