@@ -11,6 +11,13 @@ class SelekuClass {
 		}
 	}
 
+	buatDOM(f) {
+		this.fdom = f;
+		this.fdom();
+	}
+
+	hai() { console.log("Hai, saya Seleku Js!") }
+
 	// Memberi satu properti css
 	style(properti, nilai) {
 
