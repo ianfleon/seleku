@@ -139,6 +139,19 @@ $ku('h1').hapusNilaiAttr('class', 'judul');
 ```
 
 
+**--- v1.3 ---**
+###### Memanipulasi satu elemen secara bersamaan
+```js
+$ku('h1').buatDOM(function() {
+
+	this.style('color', '#fff');
+	this.css({
+		'background-color' : 'teal',
+		'font-family' : 'arial'
+	});
+	
+});
+```
 
 ## Variabel Javacsript ke HTML
 
