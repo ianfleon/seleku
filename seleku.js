@@ -35,12 +35,12 @@ class SelekuClass {
 	// Membuat tag baru dengan isinya
 	tambahTag(tag, isi) {
 
-		const tagBaru = document.createElement(tag);
-		const isiTagBaru = document.createTextNode(isi);
+		let tagBaru = document.createElement(tag);
+		let isiTagBaru = document.createTextNode(isi);
 
 		tagBaru.appendChild(isiTagBaru);
 
-		const hasilGabung = this.elemen.appendChild(tagBaru);
+		let hasilGabung = this.elemen.appendChild(tagBaru);
 
 		return hasilGabung;
 
@@ -80,6 +80,13 @@ class SelekuClass {
 	hapusNilaiAttr(properti, nilai) {
 		let nilai_full = this.elemen.getAttribute(properti);
 		return this.elemen.setAttribute(properti, nilai_full.replace(nilai, ''));
+	}
+
+	//mengupdate nilai attribute
+	updateNilaiAttr(properti, nilai){
+		if(this.element){
+			this.element.setAttribute(properti,nilai);
+		}
 	}
 
 	// Method tambahElement (Parameter = Object)
@@ -255,6 +262,11 @@ function $elek (elemen, indeks) {
 
 // [[ Mengambil Satu Elemen dan Memanipulasinya ]]
 function $ku (elemen, indeks) {
-	const el_html = document.querySelector(elemen); // ambil elemen
+	let el_html;
+	if(elemen instanceof HTMLElement || typeof elemen !== "string" && typeof elemen !== "number"){
+		el_html = elemen;
+	}else{
+		el_html = document.querySelector(elemen);
+	} // ambil elemen
 	return new SelekuClass(el_html); // membuat objek dan mengirimkan elemen tadi
 }

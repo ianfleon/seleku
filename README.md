@@ -140,10 +140,10 @@ $ku('h1').hapusNilaiAttr('class', 'judul');
 
 
 
-## Javacsript variabel to html
+## Variabel Javacsript ke html
 
-#### seleku also allows to access variables in javascript directly without using the DOM just simply add `{variable}` where `variable`
-#### is a direct access javascript variable
+#### seleku juga memungkinkan untuk mengakses variabel di javascript secara langsung tanpa menggunakan DOM cukup dengan menambahkan `{variable}` di mana `variabel`
+#### adalah variabel javascript akses langsung
 
 
 ```HTML
@@ -158,6 +158,8 @@ $ku('h1').hapusNilaiAttr('class', 'judul');
 	<h1>hello {name}</h1>
 	
 	<script src="seleku.js"></script>
+	<script src="global_function.js"></script>
+	<script src="joss.js"></script>
 	<script src="seleku-embbeded.js"></script>
 	<script>
 
@@ -169,10 +171,9 @@ $ku('h1').hapusNilaiAttr('class', 'judul');
 
 ```
 
-
-## Binding and Reactivity in `selek`
-#### selek also has binding and reactivity remember only for the ``` input ``` and `textarea` tags, to use them simply add the ` this-bind = {variable} ` attribute
-#### Example
+## Mengikat dan Reaktivitas dalam `selek`
+#### selek juga memiliki binding dan reaktivitas, ingat hanya untuk tag ``` input ``` dan` textarea`, untuk menggunakannya cukup tambahkan atribut `this-bind = {variable}`
+#### Contoh
 
 
 ```HTML
@@ -188,6 +189,8 @@ $ku('h1').hapusNilaiAttr('class', 'judul');
 	<input type="text" name="try" this-bind={name}>
 	
 	<script src="seleku.js"></script>
+	<script src="global_function.js"></script>
+	<script src="joss.js"></script>
 	<script src="seleku-embbeded.js"></script>
 	<script>
 
@@ -198,7 +201,7 @@ $ku('h1').hapusNilaiAttr('class', 'judul');
 </html>
 
 ```
-#### --Or--
+#### --Atau--
 
 ```HTML
 
@@ -213,6 +216,8 @@ $ku('h1').hapusNilaiAttr('class', 'judul');
 	<input type="text" name="try" oninput="input(this)">
 	
 	<script src="seleku.js"></script>
+	<script src="global_function.js"></script>
+	<script src="joss.js"></script>
 	<script src="seleku-embbeded.js"></script>
 	<script>
 
@@ -220,6 +225,42 @@ $ku('h1').hapusNilaiAttr('class', 'judul');
 
 		function input(element){
 			contexts.name = element.value;
+		}
+
+	</script>
+</body>
+</html>
+
+```
+
+## dynamic attribute di `selek`
+#### dynamic attribute adalah attribute yang memiliki reaktivitas dan memungkinkan terjadinya perubahan attribute itu sendiri secara realtime
+#### Contoh
+
+
+```HTML
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>selek</title>
+</head>
+<body>
+	
+	<h1 style={myStyle}>{name}</h1>
+	<input type="text" name="try" oninput="changeColor(this)">
+	
+	<script src="seleku.js"></script>
+	<script src="global_function.js"></script>
+	<script src="joss.js"></script>
+	<script src="seleku-embbeded.js"></script>
+	<script>
+
+		let name = "seleku";
+		let myStyle = "";
+
+		let changeColor = (element)=>{
+			contexts.myStyle = element.value;
 		}
 
 	</script>
