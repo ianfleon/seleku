@@ -3,7 +3,7 @@ Manipulasi HTML dengan Javascript sederhana.
 
 ## Penggunaan Online :
 ```HTML
-<script src="https://cdn.statically.io/gh/ianfleon/seleku/main/seleku.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/ianfleon/seleku@main/seleku.min.js"></script>
 ```
 
 ## Penggunaan Offline :
@@ -140,9 +140,9 @@ $ku('h1').hapusNilaiAttr('class', 'judul');
 
 
 
-## Variabel Javacsript ke html
+## Variabel Javacsript ke HTML
 
-#### seleku juga memungkinkan untuk mengakses variabel di javascript secara langsung tanpa menggunakan DOM cukup dengan menambahkan `{variable}` di mana `variabel`
+#### Seleku juga memungkinkan untuk mengakses variabel di javascript secara langsung tanpa menggunakan DOM cukup dengan menambahkan `{variable}` di mana `variabel`
 #### adalah variabel javascript akses langsung
 
 
@@ -171,8 +171,9 @@ $ku('h1').hapusNilaiAttr('class', 'judul');
 
 ```
 
-## Mengikat dan Reaktivitas dalam `selek`
-#### selek juga memiliki binding dan reaktivitas, ingat hanya untuk tag ``` input ``` dan` textarea`, untuk menggunakannya cukup tambahkan atribut `this-bind = {variable}`
+## Mengikat dan Reaktivitas dalam `seleku`
+#### Seleku juga memiliki binding dan reaktivitas, ingat hanya untuk tag ``` input ``` dan` textarea`, untuk menggunakannya cukup tambahkan atribut `this-bind = {variable}`
+
 #### Contoh
 
 
@@ -201,7 +202,7 @@ $ku('h1').hapusNilaiAttr('class', 'judul');
 </html>
 
 ```
-#### --Atau--
+#### --atau--
 
 ```HTML
 
@@ -233,8 +234,9 @@ $ku('h1').hapusNilaiAttr('class', 'judul');
 
 ```
 
-## dynamic attribute di `selek`
-#### dynamic attribute adalah attribute yang memiliki reaktivitas dan memungkinkan terjadinya perubahan attribute itu sendiri secara realtime
+## Dynamic Attribute di `seleku`
+#### Dynamic attribute adalah attribute yang memiliki reaktivitas dan memungkinkan terjadinya perubahan attribute itu sendiri secara realtime
+
 #### Contoh
 
 
