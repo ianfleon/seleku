@@ -24,8 +24,19 @@ let selekDOM = (element) => {
 
         for (let attr of child) {
             if (attr.getAttribute("class")) {
-                let attrOfElement = attr.getAttribute("class").split(" ");
+                let allOfLongProperty = attr.getAttribute("class").match(/\(.*?\)/);
+                let attrOfElement;
+                allOfLongProperty?.forEach((i,index)=>{
+                    attrOfElement = attr.getAttribute("class").replace(/\(.*?\)/,"$"+index).replace(/\s+/igm,"~");
+                    attrOfElement = attrOfElement.replace("$"+index,i).split("~");
+                });
 
+                if(attrOfElement === void 0){
+                   attrOfElement =  attr.getAttribute("class").split(" ");
+                }
+
+                c(attrOfElement)
+               
                 for (let attrOfElementStyle of attrOfElement) {
                     if (attrOfElementStyle.split(/-/igm).length === 3) {
                         new JOSS({
@@ -161,15 +172,14 @@ let reactive = () => {
             allElements.forEach((i) => {
                 try {
                     if (i.value === "" || i.value !== "" && typeof i.value === "string") {
-                        i.value = eval(i.getAttribute("this-bind").replace(/{/igm, "").replace(/}/igm, "")).toString();
+                        i.value = eval(i.getAttribute("this:bind").replace(/{/igm, "").replace(/}/igm, "")).toString();
                         i.oninput = () => {
                             allElementAttribute.forEach((j) => {
-                                name = i.getAttribute("this-bind").replace(/{/igm, "").replace(/}/igm, "");
+                                name = i.getAttribute("this:bind").replace(/{/igm, "").replace(/}/igm, "");
                                 if (name == j.bindTo) {
-                                    contexts[name] = `"${i.value}"`;
+                                    contexts[name] = `${i.value}`;
                                     eval(`${name} = "${i.value}"`);
                                     j.element.innerHTML = eval(name);
-                    
                                 }
 
                             });
@@ -195,15 +205,21 @@ let reactive = () => {
                         if (name === j.attr) {
                             let g = {...j.element.attributes
                             };
+
                             if (Name === undefined) {
                                 for (let x in g) {
                                     if (g[x].value.match(/\{(.*?)\}/)) {
+
                                         try {
+                                            if(g[x].name === "this:bind"){
+                                                return;
+                                            }
                                             eval(`${name} = "${contexts[name]}"`);
                                             j.element.setAttribute(g[x].name, contexts[name]);
                                             Name = g[x].name;
                                         } catch (error) {
                                             e(error)
+
                                         }
 
 
